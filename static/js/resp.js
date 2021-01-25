@@ -11,3 +11,9 @@ burger.addEventListener('click', ()=>{
     navbar.classList.toggle('h-nav-resp');
     
 })
+
+navList.addEventListener('click', ()=>{
+    navList.classList.toggle('v-class-resp');
+    navbar.classList.toggle('h-nav-resp');
+    
+})
