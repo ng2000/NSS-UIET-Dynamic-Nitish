@@ -101,7 +101,7 @@ input.resolvedbutton:hover{
     color: black;
     cursor: pointer;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 1140px) {
     .responsive-table .table-header {
         display: none;
     }
