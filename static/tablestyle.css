@@ -98,8 +98,8 @@ input.pendingbutton:hover{
     cursor: pointer;
 }
 input.resolvedbutton:hover{
-    color: black;
-    cursor: pointer;
+    color: rgb(255, 255, 255);
+    cursor: default;
 }
 @media all and (max-width: 1140px) {
     .responsive-table .table-header {

@@ -43,20 +43,26 @@ html
           .col.col-2 Email
           .col.col-3 Phone
           .col.col-4 Concern
-          .col.col-5 Status
-          .col.col-6 Change status
+          //- .col.col-5 Status
+          .col.col-6 update status
         each collection in data
           li.table-row
             .col.col-1(data-label="Name")=collection.name
             .col.col-2(data-label="Email")=collection.email
             .col.col-3(data-label="Phone")=collection.phone
             .col.col-4(data-label="Concern")=collection.concern
-            .col.col-5(data-label="Status")=collection.status
+            //- .col.col-5(data-label="Status")=collection.status
             .col.col-6(data-label="Change Status")
-              form(action='/save/'+collection._id+'/pending', method="post")
-                input.pendingbutton(type="submit" value="Pending")
-              form(action='/save/'+collection._id+'/resolved', method="post")
-                input.resolvedbutton(type="submit" value="Resolved")
+              if collection.status=="Resolved"
+                form()
+                  input.resolvedbutton(value="Resolved" disabled)
+              else 
+                if collection.status==""
+                  form(action='/save/'+collection._id+'/pending', method="post")
+                    input.pendingbutton(type="submit" value="Pending")
+                else    
+                  form(action='/save/'+collection._id+'/resolved', method="post")
+                    input.pendingbutton(type="submit" value="Pending")
             
     
       //-  div.todo-container
