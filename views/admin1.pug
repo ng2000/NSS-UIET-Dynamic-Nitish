@@ -58,7 +58,7 @@ html
                   input.resolvedbutton(value="Resolved" disabled)
               else 
                 if collection.status==""
-                  form(action='/save/'+collection._id+'/pending', method="post")
+                  form(action='/save/'+collection._id+'/resolved', method="post")
                     input.pendingbutton(type="submit" value="Pending")
                 else    
                   form(action='/save/'+collection._id+'/resolved', method="post")

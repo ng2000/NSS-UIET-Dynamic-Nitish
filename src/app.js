@@ -133,7 +133,7 @@ app.get("/logout", auth, async (req, res) => {
     res.clearCookie('jwt');
     await req.user.save();
 
-    res.render("login.pug")
+    res.redirect("/login")
   } catch (error) {
     res.status(500).send(error)
   }
