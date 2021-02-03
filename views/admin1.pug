@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Admin Panel
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='icon' type='image/ico' href='../static/img/icons/nss_symbol_oCJ_icon.ico')
     link(rel='stylesheet', href='/static/styleadmin1.css', type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap', rel='stylesheet')
@@ -90,7 +91,7 @@ html
             .col100.col-3100(data-label="Phone")=collection.phone
             .col100.col-4100(data-label="Concern")=collection.concern
             .col100.col-5100(data-label="Status")=collection.status
-            .col100.col-6100(data-label="Change Status")
+            .col100.col-6100(data-label="Update Status")
               if collection.status=="Resolved"
                 form(action='/delete/'+collection._id)
                   button.del-button100(type="submit")
@@ -172,7 +173,7 @@ html
                   span.fas.fa-edit
                 a.remove(href='todos/'+collection._id)
                   span.fas.fa-times
-    footer.footer100.f100
+    footer.footer100.f
       p.text-footer100
         | Copyright © - NSS UIET - All rights reserved
         br

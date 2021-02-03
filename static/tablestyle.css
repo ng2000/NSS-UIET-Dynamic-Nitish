@@ -116,13 +116,14 @@ input.resolvedbutton100:hover{
     width: 35px;
     color: white;
 }
-/* @media all and (max-width: 1140px) {
+@media all and (max-width: 1140px) {
     .responsive-table100 .table-header100 {
         display: none;
     }
     .responsive-table100 li {
         display: block;
     }
+    
     .responsive-table100 .col100 {
         flex-basis: 100%;
     }
@@ -130,6 +131,7 @@ input.resolvedbutton100:hover{
         display: flex;
         padding: 10px 0;
     }
+    
     .responsive-table100 .col100:before {
         color: #6c7a89;
         padding-right: 10px;
@@ -137,4 +139,4 @@ input.resolvedbutton100:hover{
         flex-basis: 50%;
         text-align: right;
     }
-} */
+}
