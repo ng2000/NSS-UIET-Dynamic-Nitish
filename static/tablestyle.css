@@ -101,7 +101,22 @@ input.resolvedbutton100:hover{
     color: rgb(255, 255, 255);
     cursor: default;
 }
-@media all and (max-width: 1140px) {
+.del-button100{
+    background: #f00;
+    width: 35px;
+    color: white;
+}
+.seen-button100{
+    background: rgb(255, 239, 1);
+    width: 35px;
+    color: rgb(0, 0, 0);
+}
+.resolved-button100{
+    background: rgba(54, 168, 30);
+    width: 35px;
+    color: white;
+}
+/* @media all and (max-width: 1140px) {
     .responsive-table100 .table-header100 {
         display: none;
     }
@@ -122,4 +137,4 @@ input.resolvedbutton100:hover{
         flex-basis: 50%;
         text-align: right;
     }
-}
+} */
