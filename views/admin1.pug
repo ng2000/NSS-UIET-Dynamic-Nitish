@@ -97,14 +97,14 @@ html
                   button.del-button100(type="submit")
                       i.fa.fa-trash(aria-hidden='true')
               else 
-                if collection.status==""
-                  form(action='/save/'+collection._id+'/seen', method="post")
-                    button.seen-button100(type="submit")
-                      i.fa.fa-eye(aria-hidden='true')
-                else    
+                if collection.status=="Seen"
                   form(action='/save/'+collection._id+'/resolved', method="post")
                     button.resolved-button100(type="submit")
                       i.fa.fa-check(aria-hidden='true')
+                else     
+                  form(action='/save/'+collection._id+'/seen', method="post")
+                    button.seen-button100(type="submit")
+                      i.fa.fa-eye(aria-hidden='true')
             
     
       //-  div.todo-container
