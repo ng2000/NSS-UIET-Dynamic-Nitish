@@ -210,10 +210,10 @@ app.post('/register', auth,async (req, res) => {
 
       const token = await myData.generateAuthToken();
 
-      res.cookie("jwt", token, {
-        expires: new Date(Date.now() + 30000),
-        httpOnly: true
-      })
+      // res.cookie("jwt", token, {
+      //   expires: new Date(Date.now() + 30000),
+      //   httpOnly: true
+      // })
 
       await myData.save()
       res.status(201).redirect("/admin1");
