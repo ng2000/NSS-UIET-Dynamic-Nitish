@@ -201,7 +201,7 @@ app.get("/register", auth, (req, res) => {
 });
 
 // Posting data of new admin to database
-app.post('/register', async (req, res) => {
+app.post('/register', auth,async (req, res) => {
   try {
     if (req.body.password === req.body.confirmPassword) {
       var myData = new Register(req.body);
