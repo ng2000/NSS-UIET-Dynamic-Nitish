@@ -125,6 +125,7 @@ body{
        max-width: calc(50% - 30px);
 
    }
+   
 }
 
 @media(max-width: 767px){
@@ -133,7 +134,20 @@ body{
        max-width: calc(100%);
 
    }
+
+   
+   
 }
+
+@media(min-width: 768px){
+
+   .teamsimage{
+	height:300px; 
+	width:260px;
+	}
+   
+}
+
 
 
 
