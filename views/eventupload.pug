@@ -1,0 +1,138 @@
+doctype html
+head
+  title Add Events
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  script(src='https://kit.fontawesome.com/e1391d7e22.js')
+  link(rel='icon' type='image/png' href='../static/images/icons/favicon.ico')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1' crossorigin='anonymous')
+  link(rel='stylesheet' type='text/css' href='../static/main.css')
+  link(rel="stylesheet" href="../static/css/style.css") 
+  link(rel="stylesheet" href="../static/css/responsive.css")
+body
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.sticky-top
+    .container-fluid
+      a.navbar-brand(href='#')
+        img(src='../static/img/1.png' height='28' alt='NSS UIET logo')
+        |  NSS UIET
+      //- a.navbar-brand(href='#') NSS UIET
+      button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          li.nav-item
+              a.nav-link(aria-current='page' href='/') 
+                b Home
+          li.nav-item
+            a.nav-link(href='/eventslist') 
+              b Events
+          li.nav-item
+            a.nav-link(href='/teamlist') 
+              b Team
+          li.nav-item
+            a.nav-link(href='/admin1') 
+              b Queries
+          li.nav-item
+            a.nav-link(href="/adminlist") 
+              b Admin List
+          li.nav-item.dropdown
+            a#navbarDropdown-dark.nav-link.dropdown-toggle(href='' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+              | Logout
+            ul.dropdown-menu(aria-labelledby='navbarDropdown')
+              li
+                a.dropdown-item(href='/logout') Logout
+              li
+                a.dropdown-item(href='/logoutall') Logout from all devices
+  .limiter
+    .container-login100
+      .wrap-login100
+        .login100-pic.js-tilt(data-tilt='')
+          img(src='../static/images/img-01.png' alt='IMG')
+        form(action= "/eventupload", method= "post", class= "form100 login100-form validate-form" enctype='multipart/form-data' )
+          if err!=undefined 
+            .alert.alert-warning.alert-dismissible.fade.show.mb-0(role='alert')
+                strong=err
+                button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
+          else
+          if sucessed!=undefined 
+            .alert.alert-success.alert-dismissible.fade.show.mb-0(role='alert')
+              strong=sucessed
+              button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')          
+          span.login100-form-title
+            | Add New Event
+
+          .wrap-input100.validate-input()
+            label.col-md-3.control-label(for=' Description' ) Title
+            input.myInput.input100(type='text' name='heading' placeholder='' style="border-radius: 7px 7px; padding: 0 10px 0 10px;" )
+
+          .wrap-input100.validate-input()
+            label.col-md-3.control-label(for=' Description') Description
+            textarea.myInput.input100(name="description" cols="30" rows="10" placeholder=" " style="height: 77px;resize: none; border-radius: 7px 7px; padding: 0 10px 0 10px;")
+          .form-group
+            label.control-label(for='file') Upload File
+            .col-md-9
+            input.form-control(type='file' name='file' required='')
+            
+          .container-login100-form-btn
+            button.login100-form-btn
+              | ADD
+            
+              
+  footer.footer100
+    p.text-footer100
+      | Copyright © - NSS UIET - All rights reserved
+      br
+      | Created by - Nitish Gupta
+  //- script(src="../static/js/resp.js")
+  script.
+    $('.js-tilt').tilt({
+    scale: 1.1
+    })
+  script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-23581568-13')
+  script.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-23581568-13');
+  script(src='js/main.js')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js' integrity='sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW' crossorigin='anonymous')
+//- //- doctype html
+//- //- html(lang="en")
+//- 	head
+//- 		meta(charset="UTF-8")
+//- 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+//- 		// Primary Meta Tags
+//- 		title NSS UIET
+//- 		meta(name='title' content='NSS UIET')
+//- 		meta(name='description' content='NOT ME, BUT YOU')
+//- 		// Open Graph / Facebook
+//- 		meta(property='og:type' content='website')
+//- 		meta(property='og:url' content='https://nss-uiet.herokuapp.com/')
+//- 		meta(property='og:title' content='NSS UIET')
+//- 		meta(property='og:description' content='NOT ME, BUT YOU')
+//- 		meta(property='og:image' content='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/NSS_Hand_Logo.jpg/220px-NSS_Hand_Logo.jpg')
+//- 		// Twitter
+//- 		meta(property='twitter:card' content='summary_large_image')
+//- 		meta(property='twitter:url' content='https://nss-uiet.herokuapp.com/')
+//- 		meta(property='twitter:title' content='NSS UIET')
+//- 		meta(property='twitter:description' content='NOT ME, BUT YOU')
+//- 		meta(property='twitter:image' content='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/NSS_Hand_Logo.jpg/220px-NSS_Hand_Logo.jpg')
+
+
+//- 		link(rel='icon' type='image/ico' href='../static/img/icons/nss_symbol_oCJ_icon.ico')
+//- 		link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1' crossorigin='anonymous')
+//- 		link(rel="stylesheet" href="../static/css/style.css")
+//- 		link(rel="stylesheet" href="../static/css/responsive.css")
+//- 		link(rel="stylesheet" href="../static/css/aboutcards.css")
+		
+		
+//- 		title NSS UIET
+//- 	body
+//- 		form(action= "/eventupload", method= "post", class= "form100" enctype='multipart/form-data')
+//- 			input#heading.form-input100(type="text" name="heading" placeholder="Enter Your name")
+//- 			textarea#description.form-input100(name="description" cols="30" rows="10" placeholder="Ellaborate your concern" style="height: 77px;resize: none;")
+//- 			.form-group
+//- 				label.col-md-3.control-label(for='file') Upload File
+//- 				.col-md-9
+//- 				input.form-control(type='file' name='file' required='')
+//- 			button.btn100.btn-sm100.btn-dark100 Submit

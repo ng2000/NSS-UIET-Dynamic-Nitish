@@ -115,36 +115,37 @@ html(lang="en")
 						| to society without bias.
 				.secondHalf100
 					img(src="../static/img/img.png" alt="NSS")
+		
+		
 		#events
 			.eventnssheading1100
 				h1  Activities/Events
 				hr
-			section.section100
-				.paras100
-					p.sectionTag100.text-big100 Plantation Drive
-					p.sectionSubTag100.text-small100
-						| Eminence and Inspiration were the words that resonated when NSS-UIET Unit conducted “Tree Plantation Drive” in collaboration with Global Warming Reduction Center, accompanying the student volunteers in the college premises.
-						
-				.thumbnail100
-					img.imgFluid(src="../static/img/plantation.jpg" alt="event")
-			section.section100
-				.paras100
-					p.sectionTag100.text-big100 Cleanliness Drive
-					p.sectionSubTag100.text-small100
-						| Such drives are a wonderful opportunity for people’s participation and they are major avenues to raise awareness on the importance of cleanliness in one’s neighbourhood.
-						| Cleanliness drive programme on 
-						| Swachh Bharat Abhiyan 
-						| was organised by NSS-UIET 
-						| unit in collaboration with Unnat Bharat Abhiyan in campus.
-				.thumbnail100
-					img.imgFluid(src="../static/img/cleanliness-drive.jpg" alt="event")
-			section.section100
-				.paras100
-					p.sectionTag100.text-big100 Blood Donation Camp
-					p.sectionSubTag100.text-small100
-						| The NSS unit of UIET,Panjab University,Chandigarh organized a blood donation camp in collaboration with blood bank of PGIMER. The camp began with a short inaugural function where in Dr. Sanjay Vohra and his five member team was given a floral welcome.
-				.thumbnail100
-					img.imgFluid100(src="../static/img/blood-donation.jpg" alt="event")
+			each collection in events.data
+				section.section100
+					.paras100
+						p.sectionTag100.text-big100=collection.heading
+						p.sectionSubTag100.text-small100=collection.description
+					.thumbnail100
+						img.imgFluid(src="../static/eventuploads/"+collection.imagename  alt="event")
+			//- section.section100
+			//- 	.paras100
+			//- 		p.sectionTag100.text-big100 Cleanliness Drive
+			//- 		p.sectionSubTag100.text-small100
+			//- 			| Such drives are a wonderful opportunity for people’s participation and they are major avenues to raise awareness on the importance of cleanliness in one’s neighbourhood.
+			//- 			| Cleanliness drive programme on 
+			//- 			| Swachh Bharat Abhiyan 
+			//- 			| was organised by NSS-UIET 
+			//- 			| unit in collaboration with Unnat Bharat Abhiyan in campus.
+			//- 	.thumbnail100
+			//- 		img.imgFluid(src="../static/img/cleanliness-drive.jpg" alt="event")
+			//- section.section100
+			//- 	.paras100
+			//- 		p.sectionTag100.text-big100 Blood Donation Camp
+			//- 		p.sectionSubTag100.text-small100
+			//- 			| The NSS unit of UIET,Panjab University,Chandigarh organized a blood donation camp in collaboration with blood bank of PGIMER. The camp began with a short inaugural function where in Dr. Sanjay Vohra and his five member team was given a floral welcome.
+			//- 	.thumbnail100
+			//- 		img.imgFluid100(src="../static/img/blood-donation.jpg" alt="event")
 		#team
 			//- .teamnssh1
 				h1 Our Team
@@ -160,58 +161,66 @@ html(lang="en")
 							
 					.row100
 						.team-items100
-							.item100
-								img(src='../static/team-img/gagan-sir.jpeg' alt='team')
-								.inner100
-									.info100
-										h5 Prof. Gagandeep
-										p Faculty coordinator
-										.social-links100
-											a(href='')
-												span.fa.fa-twitter
-											a(href='')
-												span.fa.fa-linkedin
-										
-							.item100
-								img(src='../static/team-img/srish.jpg' alt='team')
-								.inner100
-									.info100
-										h5 Srishty
-										p Student Coordinator
-										.social-links100
-											a(href='')
-												span.fa.fa-facebook
-											a(href='')
-												span.fa.fa-twitter
-											a(href='')
-												span.fa.fa-linkedin
+							each collection in team.data
+								.item100
+									img(src="../static/memberuploads/"+collection.imagename alt='team' style="height:300px; width:260px;")
+									.inner100
+										.info100
+											h5=collection.name
+											p=collection.position
+											.social-links100
+												a(href=''+collection.twiter)
+													span.fa.fa-twitter
+												a(href=''+collection.fb)
+													span.fa.fa-facebook
+												a(href=''+collection.linkedin)
+													span.fa.fa-linkedin
+
+
+
+
 							
-							.item100
-								img(src='../static/team-img/shubu.jpg' alt='team')
-								.inner100
-									.info100
-										h5 Subhajeet
-										p Student Coordinator
-										.social-links100
-											a(href='')
-												span.fa.fa-facebook
-											a(href='')
-												span.fa.fa-twitter
-											a(href='')
-												span.fa.fa-linkedin
-							.item100
-								img(src='../static/team-img/nitish.jpg' alt='team')
-								.inner100
-									.info100
-										h5 Nitish Gupta
-										p Website Developer
-										.social-links100
-											a(href='')
-												span.fa.fa-facebook
-											a(href='')
-												span.fa.fa-twitter
-											a(href='')
-												span.fa.fa-linkedin
+										
+							//- .item100
+							//- 	img(src='../static/team-img/srish.jpg' alt='team')
+							//- 	.inner100
+							//- 		.info100
+							//- 			h5 Srishty
+							//- 			p Student Coordinator
+							//- 			.social-links100
+							//- 				a(href='')
+							//- 					span.fa.fa-facebook
+							//- 				a(href='')
+							//- 					span.fa.fa-twitter
+							//- 				a(href='')
+							//- 					span.fa.fa-linkedin
+							
+							//- .item100
+							//- 	img(src='../static/team-img/shubu.jpg' alt='team')
+							//- 	.inner100
+							//- 		.info100
+							//- 			h5 Subhajeet
+							//- 			p Student Coordinator
+							//- 			.social-links100
+							//- 				a(href='')
+							//- 					span.fa.fa-facebook
+							//- 				a(href='')
+							//- 					span.fa.fa-twitter
+							//- 				a(href='')
+							//- 					span.fa.fa-linkedin
+							//- .item100
+							//- 	img(src='../static/team-img/nitish.jpg' alt='team')
+							//- 	.inner100
+							//- 		.info100
+							//- 			h5 Nitish Gupta
+							//- 			p Website Developer
+							//- 			.social-links100
+							//- 				a(href='')
+							//- 					span.fa.fa-facebook
+							//- 				a(href='')
+							//- 					span.fa.fa-twitter
+							//- 				a(href='')
+							//- 					span.fa.fa-linkedin
 
 			//- .container
 			//- 	.card
@@ -346,7 +355,8 @@ html(lang="en")
 		div
 			section#contact.contact100
 				h1.text-center100 Contact Us
-				form(action= "/contact", method= "post", class= "form100")
+				form(action= "/contact", method= "post", class= "form100" enctype='multipart/form-data')
+				
 					input#name.form-input100(type="text" name="name" placeholder="Enter Your name")
 					input#phone.form-input100(type="text" name="phone" placeholder="Enter Your Phone")
 					input#email.form-input100(type="email" name="email" placeholder="Enter Your email")

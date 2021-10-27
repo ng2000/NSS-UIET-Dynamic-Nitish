@@ -11,6 +11,10 @@ const cookieParser = require('cookie-parser');
 const auth = require("../middleware/auth")
 const port = process.env.PORT || 3000;
 
+var multer = require('multer');
+const Eventsupload = require('./models/Events');
+const MembersModel = require('./models/Members');
+
 // EXPRESS SPECIFIC STUFF
 app.use('/static', express.static('static')) // For serving static files 
 app.use(express.urlencoded({ extended: true })) //To extract the data from the website to the app.js file
@@ -24,15 +28,209 @@ app.use(cookieParser())
 app.set('view engine', 'pug') // Set the template engine as pug
 app.set('views', path.join(__dirname, '../views')) // Set the views directory
 
+
+
+var Storage= multer.diskStorage({
+  destination:"./static/eventuploads/",
+  filename:(req,file,cb)=>{
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+  }
+});
+
+var memberStorage= multer.diskStorage({
+  destination:"./static/memberuploads/",
+  filename:(req,file,cb)=>{
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+  }
+});
+var memberupload = multer({
+  storage:memberStorage
+}).single('file');
+
+
+var upload = multer({
+  storage:Storage
+}).single('file');
+
+
+
+
+app.post('/teamupload', memberupload,async (req, res, next)=> {
+  var imageFile=req.file.filename;
+  var success =req.file.filename+ " uploaded successfully";
+  
+  
+  // console.log(req.body);
+
+  var memberDetails= new MembersModel({
+    name:req.body.name,
+    position:req.body.position,
+    fb:req.body.fb,
+    twiter:req.body.twiter,
+    linkedin:req.body.linkedin,
+    imagename:imageFile
+  });
+  
+  
+  // console.log(req.body)
+  if (!req.body.name || !req.body.position|| !req.body.fb|| !req.body.twiter|| !req.body.linkedin || !imageFile) {
+    res.status(200).render("teamupload.pug", { 'err': "Please try again" });
+  } 
+  else {
+    await memberDetails.save().then(item => {
+      res.status(200).render("teamupload.pug", { 'sucessed': "Member added successfully" })
+    }).catch(err => {
+      res.status(400).send("unable to save your response try again later");
+    });
+  }
+
+});
+
+app.get('/teamlist', auth, async (req, res) => {
+  await teamlist();
+  // console.log(object1);
+  res.status(200).render('teamlist.pug', object1);
+})
+
+
+app.post('/eventupload', upload,async (req, res, next)=> {
+  var imageFile=req.file.filename;
+  var success =req.file.filename+ " uploaded successfully";
+  
+  
+  // console.log(req.body);
+
+  var imageDetails= new Eventsupload({
+    heading:req.body.heading,
+    description:req.body.description,
+    imagename:imageFile
+  });
+  
+  
+  // console.log(req.body)
+  if (!req.body.heading || !req.body.description || !imageFile) {
+    res.status(200).render("eventupload.pug", { 'err': "Please try again" });
+  } 
+  else {
+    await imageDetails.save().then(item => {
+      res.status(200).render("eventupload.pug", { 'sucessed': "Event added successfully" })
+    }).catch(err => {
+      res.status(400).send("unable to save your response try again later");
+    });
+  }
+
+});
+
+const eventlist = async () => {
+  try {
+    const collections = await Eventsupload.find({})  //returning BSON 
+    object = { "c": collections }
+    if (collections[0] == undefined) {
+      object = { "data": collections, "message": "Nothing to show!" }
+
+    }
+    else {
+      object = { "data": collections, "message": "Contact Queries" }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+const teamlist = async () => {
+  try {
+    const collections = await MembersModel.find({})  //returning BSON 
+    object1 = { "c": collections }
+    if (collections[0] == undefined) {
+      object1 = { "data": collections, "message": "Nothing to show!" }
+
+    }
+    else {
+      object1 = { "data": collections, "message": "Contact Queries" }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+
+app.get('/eventslist', auth, async (req, res) => {
+  await eventlist();
+  // console.log(object);
+  res.status(200).render('eventview.pug', object);
+})
+
+app.get('/eventupload',function(req, res, next) {
+  
+  res.render('eventupload.pug', { title: 'Upload File', success:'' });
+  
+});
+
+app.get('/teamupload',function(req, res, next) {
+  
+  res.render('teamupload.pug', { title: 'Upload File', success:'' });
+  
+});
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// const {spawn} = require('child_process'); 
+//   const childpython=spawn('python',['./src/try1.py']);
+//   var x;
+//   await childpython.stdout.on('data',(data)=>{
+//     console.log(data);
+//     x=data.toString();
+//     res.status(200).render('index.pug', {"x":x});
+//   });
+//   childpython.stderr.on('data',(data)=>{
+//     console.log();
+//   });
+    
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+const showEvents = async () => {
+  try {
+    const collections = await Eventsupload.find({})  //returning BSON 
+    eventsobj = { "c": collections }
+    if (collections[0] == undefined) {
+      eventsobj = { "data": collections, "message": "Nothing to show!" }
+
+    }
+    else {
+      eventsobj = { "data": collections}
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+
+
 // Home Page of NSS
-app.get("/", (req, res) => {
-  res.render("index.pug")
+app.get("/", async (req, res) => {
+  await showEvents();
+  await teamlist();
+  // console.log(object1)
+  res.status(200).render('index.pug', {"events":eventsobj, "team":object1});
 });
 
 // contact section of home page saving form data
 app.post('/contact', async (req, res) => {
   var myData = new Nsscontact(req.body);
-  console.log(myData)
+  // console.log(myData)
   if (!req.body.email || !req.body.concern || !req.body.phone || !req.body.name) {
     res.status(200).render("index.pug", { 'err': "Please try again" })
   } else {
@@ -103,16 +301,40 @@ const showDocument = async () => {
 
 }
 
+// Function for fetching queries from database and showin in admin panel
+const adminlist = async () => {
+  try {
+    const collections = await Register.find({})  //returning BSON 
+    object = { "c": collections }
+    if (collections[0] == undefined) {
+      object = { "data": collections, "message": "Nothing to show!" }
+
+    }
+    else {
+      object = { "data": collections, "message": "Contact Queries" }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
 // rendering admin page 
 app.get('/admin1', auth, async (req, res) => {
   await showDocument();
   res.status(200).render('admin1.pug', object);
 })
 
+app.get('/adminlist', auth, async (req, res) => {
+  await adminlist();
+
+  res.status(200).render('adminlist.pug', object);
+})
+
 // some post request handled here for updating status
 app.post("/save/:id/pending", (req, res) => {
-  console.log(req.body);
-  console.log(res)
+  // console.log(req.body);
+  // console.log(res)
   const id = req.params.id;
   Nsscontact.findByIdAndUpdate(id, {
     status: "Pending"
@@ -123,8 +345,8 @@ app.post("/save/:id/pending", (req, res) => {
 });
 
 app.post("/save/:id/resolved", (req, res) => {
-  console.log(req.body);
-  console.log(res)
+  // console.log(req.body);
+  // console.log(res)
   const id = req.params.id;
   Nsscontact.findByIdAndUpdate(id, {
     status: "Resolved"
@@ -135,8 +357,8 @@ app.post("/save/:id/resolved", (req, res) => {
 });
 
 app.post("/save/:id/seen", (req, res) => {
-  console.log(req.body);
-  console.log(res)
+  // console.log(req.body);
+  // console.log(res)
   const id = req.params.id;
   Nsscontact.findByIdAndUpdate(id, {
     status: "Seen"
@@ -156,7 +378,38 @@ app.get('/delete/:_id', function (req, res) {
     }
   });
 });
+app.get('/deletemember/:_id', function (req, res) {
+  MembersModel.findByIdAndDelete(req.params, function (err, results) {
+    if (err) {
+      return res.send(500, err);
+    }
+    else {
+      res.redirect('/teamlist');
+    }
+  });
+});
 
+app.get('/deleteadmin/:_id', function (req, res) {
+  Register.findByIdAndDelete(req.params, function (err, results) {
+    if (err) {
+      return res.send(500, err);
+    }
+    else {
+      res.redirect('/adminlist');
+    }
+  });
+});
+
+app.get('/deleteevent/:_id', function (req, res) {
+  Eventsupload.findByIdAndDelete(req.params, function (err, results) {
+    if (err) {
+      return res.send(500, err);
+    }
+    else {
+      res.redirect('/eventslist');
+    }
+  });
+});
 // // rendering dance page
 // app.get("/dance", auth, (req, res) => {
 //   res.render("dance.pug")
@@ -218,7 +471,7 @@ app.post('/register', auth, async (req, res) => {
     phone=req.body.phone;
     if (req.body.password === req.body.confirmPassword) {
       var myData = new Register(req.body);
-      console.log(myData)
+      // console.log(myData)
 
       const token = await myData.generateAuthToken();
 

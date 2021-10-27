@@ -71,17 +71,21 @@ html
     //-     .line
     .container100
       h2
-        | Contact Queries 
-        small NSS UIET
+        | Admin Panel
       ul.responsive-table100
         li.table-header100
-          .col100.col-1100 Name
-          .col100.col-2100 Email
-          .col100.col-3100 Phone
-          .col100.col-4100 Concern
-          .col100.col-5100 Status
-          .col100.col-6100 update status
+          .col100.col-1100 Members
+    
         each collection in data
+          li.table-row100
+            .col100.col-1100(data-label="Name")=collection.name
+            form(action='/deletemember/'+collection._id)
+              button.del-button100(type="submit")
+                i.fa.fa-trash(aria-hidden='true')
+        form(action='/teamupload' method="GET")
+          button(type="submit"  style="background-color: #000000;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none; display: inline-block;font-size: 16px;border-radius: 23px;width: 80%;")
+            | Add New Member
+        //- each collection in data
           li.table-row100
             .col100.col-1100(data-label="Name")=collection.name
             .col100.col-2100(data-label="Email")=collection.email
