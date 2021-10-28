@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 var memberSchema =new mongoose.Schema({
     name:String,
-    heading: String,
-    description: String,
+    position: String,
 	imagename: String,
     fb: String,
     twiter: String,

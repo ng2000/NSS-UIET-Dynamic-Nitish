@@ -223,7 +223,7 @@ const showEvents = async () => {
 app.get("/", async (req, res) => {
   await showEvents();
   await teamlist();
-  // console.log(object1)
+  console.log(object1)
   res.status(200).render('index.pug', {"events":eventsobj, "team":object1});
 });
 
