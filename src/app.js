@@ -14,6 +14,9 @@ const port = process.env.PORT || 3000;
 var multer = require('multer');
 const Eventsupload = require('./models/Events');
 const MembersModel = require('./models/Members');
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
 const { uploadFile, getFileStream } = require('./s3')
 
 // EXPRESS SPECIFIC STUFF
@@ -69,7 +72,7 @@ app.post('/teamupload', memberupload,async (req, res, next)=> {
   console.log(file)
   
   const result = await uploadFile(file)
-  
+  await unlinkFile(file.path)
   var memberDetails= new MembersModel({
     name:req.body.name,
     position:req.body.position,
@@ -110,7 +113,7 @@ app.post('/eventupload', upload,async (req, res, next)=> {
   
   const result = await uploadFile(file)
   // console.log(req.body);
-
+  await unlinkFile(file.path)
   var imageDetails= new Eventsupload({
     heading:req.body.heading,
     description:req.body.description,
