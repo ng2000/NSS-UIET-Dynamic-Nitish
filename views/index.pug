@@ -127,7 +127,7 @@ html(lang="en")
 						p.sectionTag100.text-big100=collection.heading
 						p.sectionSubTag100.text-small100=collection.description
 					.thumbnail100
-						img.imgFluid(src="../static/eventuploads/"+collection.imagename  alt="event")
+						img.imgFluid(src="/images/"+collection.imagename  alt="event")
 			//- section.section100
 			//- 	.paras100
 			//- 		p.sectionTag100.text-big100 Cleanliness Drive
@@ -163,7 +163,7 @@ html(lang="en")
 						.team-items100
 							each collection in team.data
 								.item100
-									img(src="../static/memberuploads/"+collection.imagename alt='team' class="teamsimage")
+									img(src="/images/"+collection.imagename alt='team' class="teamsimage")
 									.inner100
 										.info100
 											h5=collection.name
@@ -351,7 +351,7 @@ html(lang="en")
 						| 1607
 						| Plato founded the Academy in Athens, the first institution of higher learning in Europe.
 				.thumbnail100
-					img.imgFluid100(src="https://source.unsplash.com/900x900/?infra" alt="laptop image")
+					img.imgFluid100(src="./static/img/aboutus.jpg" alt="laptop image")
 		div
 			section#contact.contact100
 				h1.text-center100 Contact Us

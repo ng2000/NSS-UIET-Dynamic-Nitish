@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 var multer = require('multer');
 const Eventsupload = require('./models/Events');
 const MembersModel = require('./models/Members');
+const { uploadFile, getFileStream } = require('./s3')
 
 // EXPRESS SPECIFIC STUFF
 app.use('/static', express.static('static')) // For serving static files 
@@ -53,22 +54,29 @@ var upload = multer({
 }).single('file');
 
 
+app.get('/images/:key', (req, res) => {
+  console.log(req.params)
+  const key = req.params.key
+  const readStream = getFileStream(key)
 
+  readStream.pipe(res)
+})
 
 app.post('/teamupload', memberupload,async (req, res, next)=> {
   var imageFile=req.file.filename;
   var success =req.file.filename+ " uploaded successfully";
+  const file = req.file
+  console.log(file)
   
+  const result = await uploadFile(file)
   
-  // console.log(req.body);
-
   var memberDetails= new MembersModel({
     name:req.body.name,
     position:req.body.position,
     fb:req.body.fb,
     twiter:req.body.twiter,
     linkedin:req.body.linkedin,
-    imagename:imageFile
+    imagename:result.key
   });
   
   
@@ -97,13 +105,16 @@ app.post('/eventupload', upload,async (req, res, next)=> {
   var imageFile=req.file.filename;
   var success =req.file.filename+ " uploaded successfully";
   
+  const file = req.file
+  console.log(file)
   
+  const result = await uploadFile(file)
   // console.log(req.body);
 
   var imageDetails= new Eventsupload({
     heading:req.body.heading,
     description:req.body.description,
-    imagename:imageFile
+    imagename:result.key
   });
   
   
@@ -223,7 +234,7 @@ const showEvents = async () => {
 app.get("/", async (req, res) => {
   await showEvents();
   await teamlist();
-  console.log(object1)
+  // console.log(object1)
   res.status(200).render('index.pug', {"events":eventsobj, "team":object1});
 });
 
