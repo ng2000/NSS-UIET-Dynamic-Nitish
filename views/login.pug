@@ -51,15 +51,17 @@ body
           span.login100-form-title
             | Member Login
           .wrap-input100.validate-input(data-validate='Valid email is required: ex@abc.xyz')
-            input.input100(type='text' name='email' placeholder='Email' , value= email =!undefined ? email : "")
+            input.input100(type='text' name='email' placeholder='Email' , value= email !=undefined ? email : "gnitish31@gmail.com")
             span.focus-input100
             span.symbol-input100
               i.fa.fa-envelope(aria-hidden='true')
           .wrap-input100.validate-input(data-validate='Password is required')
-            input.input100(type='password' name='password' placeholder='Password')
+            input.input100(type='password' name='password' placeholder='Password' value="nitish")
             span.focus-input100
             span.symbol-input100
               i.fa.fa-lock(aria-hidden='true')
+          p.text-center.p-t-12(style="border: 1px solid #40d540; background: #e5ffda; padding: 0 1px 0 1px;")
+            | Credentials are prefilled for demonstration purpose
           .container-login100-form-btn
             button.login100-form-btn
               | Login
