@@ -188,32 +188,6 @@ app.get('/teamupload',function(req, res, next) {
   
 });
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// const {spawn} = require('child_process'); 
-//   const childpython=spawn('python',['./src/try1.py']);
-//   var x;
-//   await childpython.stdout.on('data',(data)=>{
-//     console.log(data);
-//     x=data.toString();
-//     res.status(200).render('index.pug', {"x":x});
-//   });
-//   childpython.stderr.on('data',(data)=>{
-//     console.log();
-//   });
-    
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 const showEvents = async () => {
   try {
     const collections = await Eventsupload.find({})  //returning BSON 
@@ -244,12 +218,17 @@ app.get("/", async (req, res) => {
 // contact section of home page saving form data
 app.post('/contact', async (req, res) => {
   var myData = new Nsscontact(req.body);
+  console.log(req.body);
   // console.log(myData)
   if (!req.body.email || !req.body.concern || !req.body.phone || !req.body.name) {
-    res.status(200).render("index.pug", { 'err': "Please try again" })
+    await showEvents();
+    await teamlist();
+    res.status(200).render("index.pug", { "events":eventsobj, "team":object1,'err': "Please try again" })
   } else {
-    await myData.save().then(item => {
-      res.status(200).render("index.pug", { 'sucessed': "Thanks for sending your Query" })
+    await myData.save().then(async(item) => {
+      await showEvents();
+      await teamlist();
+      res.status(200).render("index.pug",{ "events":eventsobj, "team":object1,'sucessed': "Thanks for sending your Query" })
     }).catch(err => {
       res.status(400).send("unable to save your response try again later");
     });
