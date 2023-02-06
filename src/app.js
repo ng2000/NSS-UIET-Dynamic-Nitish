@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const app = express();
-require('./db/conn');
+// require('./db/conn');
 const Register = require('./models/models');
 const Nsscontact = require('./models/contactmodel');
 const path = require("path");
@@ -10,6 +10,9 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const auth = require("../middleware/auth")
 const port = process.env.PORT || 3000;
+
+const mongoose = require("mongoose")
+
 
 var multer = require('multer');
 const Eventsupload = require('./models/Events');
@@ -490,7 +493,10 @@ app.post('/register', auth, async (req, res) => {
   }
 })
 
-//listening on specified Port
-app.listen(port, () => {
-  console.log(`server is running at port ${port}`);
-});
+
+//connecting with mongodb named todo
+mongoose.connect( process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true, 'useFindAndModify': false, 'useCreateIndex': true })
+    .then(() => app.listen(port, () => {
+      console.log(`server is running at port ${port}`);
+    }))
+    .catch(() => console.log("error in connecting database"));
