@@ -17,16 +17,43 @@ const secretAccessKey = process.env.AWS_SECRET_KEY
 // })
 
 // uploads a file to s3
+// function uploadFile(file) {
+//   const fileStream = fs.createReadStream(file.path)
+
+//   const uploadParams = {
+//     Bucket: bucketName,
+//     Body: fileStream,
+//     Key: file.filename
+//   }
+
+//   return s3.upload(uploadParams).promise()
+// }
+// exports.uploadFile = uploadFile
+
+
+// // downloads a file from s3
+// function getFileStream(fileKey) {
+//   const downloadParams = {
+//     Key: fileKey,
+//     Bucket: bucketName
+//   }
+
+//   return s3.getObject(downloadParams).createReadStream()
+// }
+// exports.getFileStream = getFileStream
+
+
+
 function uploadFile(file) {
   const fileStream = fs.createReadStream(file.path)
+  
 
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
     Key: file.filename
   }
-
-  return s3.upload(uploadParams).promise()
+  return s3.putObject(uploadParams).promise()
 }
 exports.uploadFile = uploadFile
 
@@ -41,7 +68,6 @@ function getFileStream(fileKey) {
   return s3.getObject(downloadParams).createReadStream()
 }
 exports.getFileStream = getFileStream
-
 // const express = require('express')
 // const app = express()
 // const AWS = require("aws-sdk");
@@ -80,11 +106,11 @@ exports.getFileStream = getFileStream
 
 //   console.log(typeof req.body)
 
-//   await s3.putObject({
-//     Body: JSON.stringify(req.body),
-//     Bucket: process.env.BUCKET,
-//     Key: filename,
-//   }).promise()
+  // await s3.putObject({
+  //   Body: JSON.stringify(req.body),
+  //   Bucket: process.env.BUCKET,
+  //   Key: filename,
+  // }).promise()
 
 //   res.set('Content-type', 'text/plain')
 //   res.send('ok').end()
