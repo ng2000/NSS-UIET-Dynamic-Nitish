@@ -64,7 +64,7 @@ app.get('/images/:key', (req, res) => {
   console.log(req.params)
   const key = req.params.key
   const readStream = getFileStream(key)
-  console.log("read = " + JSON.stringify(readStream.body));
+  console.log("read = " + JSON.stringify(readStream));
 
   readStream.pipe(res)
 })
@@ -83,7 +83,7 @@ app.post('/teamupload', memberupload,async (req, res, next)=> {
     fb:req.body.fb,
     twiter:req.body.twiter,
     linkedin:req.body.linkedin,
-    imagename:result.key
+    imagename:req.file.filename
   });
   
   
