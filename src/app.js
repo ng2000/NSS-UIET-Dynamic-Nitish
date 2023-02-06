@@ -45,7 +45,7 @@ var Storage= multer.diskStorage({
 });
 
 var memberStorage= multer.diskStorage({
-  destination:"./static/memberuploads/",
+  destination:"/tmp/",
   filename:(req,file,cb)=>{
     cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
   }
